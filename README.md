@@ -14,7 +14,7 @@ Install node dependencies:
 bun install
 ```
 
-Set up and `.env` in the project root and fill in the following values:
+Set up an `.env` in the project root and fill in the following values:
 ```
 XERO_CLIENT_ID=
 XERO_CLIENT_SECRET=
