@@ -1,4 +1,3 @@
-// src/xero/upload.ts
 import puppeteer from "puppeteer";
 import { xeroConfig } from "../config";
 

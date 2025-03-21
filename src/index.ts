@@ -45,10 +45,7 @@ serve({
           "2024-01-01",
         );
 
-        processXeroUpload(
-          transactions.booked,
-          process.env.XERO_BANK_ACCOUNT_ID as string,
-        );
+        processXeroUpload(transactions.booked);
 
         return new Response(JSON.stringify(transactions, null, 2), {
           headers: { "Content-Type": "application/json" },
