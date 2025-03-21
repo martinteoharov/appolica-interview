@@ -68,5 +68,3 @@ export const uploadCSVToXero = async (csvPath: string = "transactions.csv") => {
     await browser.close();
   }
 };
-
-uploadCSVToXero("transactions.csv");

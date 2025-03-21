@@ -1,3 +1,42 @@
+Generate TLS certificates:
+
+```bash
+# make sure you create the certs directory
+mkdir certs
+
+openssl genrsa -out certs/key.pem 2048
+openssl req -new -sha256 -key certs/key.pem -out certs/csr.csr -subj "/C=US/ST=State/L=City/O=Organization/OU=Unit/CN=localhost"
+openssl req -x509 -sha256 -days 365 -key certs/key.pem -in certs/csr.csr -out certs/cert.pem
+```
+
+Install node dependencies:
+```bash
+bun install
+```
+
+Set up and `.env` in the project root and fill in the following values:
+```
+XERO_CLIENT_ID=
+XERO_CLIENT_SECRET=
+XERO_REDIRECT_URI=
+XERO_BANK_ACCOUNT_ID=
+XERO_EMAIL=
+XERO_PASSWORD=
+
+GC_ACCESS_TOKEN=
+GC_REDIRECT_URI=
+GC_INSTITUTION_ID=
+GC_SANDBOX=
+```
+
+
+
+
+---
+# Steps
+
+
+
 Виждам, че PSD2 е EU стандарт, който задължава банките да следват някои правила с цел подобряване на банковите услуги.
 
 ## 1. DSK Direct Integration

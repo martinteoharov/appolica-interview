@@ -11,6 +11,10 @@ let activeRequisitionId: string | null = null;
 
 serve({
   port: 3001,
+  tls: {
+    key: Bun.file("./certs/key.pem"),
+    cert: Bun.file("./certs/cert.pem"),
+  },
   async fetch(req) {
     const url = new URL(req.url);
 
@@ -61,4 +65,4 @@ serve({
   },
 });
 
-console.log("Visit http://localhost:3001/auth");
+console.log("Visit https://localhost:3001/auth");
