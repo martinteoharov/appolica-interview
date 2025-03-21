@@ -1,10 +1,10 @@
 import { createGCClient } from "./gcClient";
-import { config } from "./config";
+import { goCardlessConfig } from "./config";
 
 export const createAgreement = async () => {
   const client = createGCClient();
   const { data } = await client.post("/agreements/enduser/", {
-    institution_id: config.institution_id,
+    institution_id: goCardlessConfig.institutionId,
     max_historical_days: 90, // note: depends on the institution
     access_valid_for_days: 90, // note: depends on the institution
     access_scope: ["balances", "details", "transactions"],
@@ -15,8 +15,8 @@ export const createAgreement = async () => {
 export const createRequisition = async (agreementId: string) => {
   const client = createGCClient();
   const { data } = await client.post("/requisitions/", {
-    redirect: config.redirect_uri,
-    institution_id: config.institution_id,
+    redirect: goCardlessConfig.redirectUri,
+    institution_id: goCardlessConfig.institutionId,
     agreement: agreementId,
     user_language: "EN",
   });

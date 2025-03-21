@@ -5,6 +5,7 @@ import {
   fetchAccounts,
   fetchTransactions,
 } from "./api";
+import { processXeroUpload } from "./xero";
 
 let activeRequisitionId: string | null = null;
 
@@ -35,7 +36,15 @@ serve({
         const accountId = await fetchAccounts(activeRequisitionId);
 
         // fetch transactions
-        const transactions = await fetchTransactions(accountId, "2024-01-01");
+        const { transactions } = await fetchTransactions(
+          accountId,
+          "2024-01-01",
+        );
+
+        processXeroUpload(
+          transactions.booked,
+          process.env.XERO_BANK_ACCOUNT_ID as string,
+        );
 
         return new Response(JSON.stringify(transactions, null, 2), {
           headers: { "Content-Type": "application/json" },

@@ -1,13 +1,13 @@
 import axios from "axios";
-import { config } from "./config";
+import { goCardlessConfig } from "./config";
 
 export const createGCClient = () =>
   axios.create({
-    baseURL: config.sandbox
+    baseURL: goCardlessConfig.sandbox
       ? "https://bankaccountdata.gocardless.com/api/v2"
       : "https://bankaccountdata.gocardless.com/api/v2",
     headers: {
-      Authorization: `Bearer ${config.access_token}`,
+      Authorization: `Bearer ${goCardlessConfig.accessToken}`,
       "Content-Type": "application/json",
       "GoCardless-Version": "2023-06-01",
     },
