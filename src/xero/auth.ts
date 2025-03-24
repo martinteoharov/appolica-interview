@@ -1,4 +1,6 @@
 import axios from "axios";
+import twofactor from "node-2fa";
+import { xeroConfig } from "../config";
 
 export interface XeroToken {
   access_token: string;
@@ -39,4 +41,13 @@ export const getXeroTenantId = async (accessToken: string) => {
     },
   });
   return data[0].tenantId;
+};
+
+export const generateOTPToken = () => {
+  const result = twofactor.generateToken(xeroConfig.otpSecret);
+  if (result) {
+    return result.token;
+  } else {
+    throw new Error("Failed to generate token");
+  }
 };

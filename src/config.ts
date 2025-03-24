@@ -9,6 +9,7 @@ interface XeroConfig {
   bankAccountId: string;
   email: string;
   password: string;
+  otpSecret: string;
 }
 
 interface GoCardlessConfig {
@@ -25,6 +26,7 @@ export const xeroConfig: XeroConfig = {
   bankAccountId: process.env.XERO_BANK_ACCOUNT_ID!,
   email: process.env.XERO_EMAIL!,
   password: process.env.XERO_PASSWORD!,
+  otpSecret: process.env.XERO_OTP_SECRET!,
 };
 
 export const goCardlessConfig: GoCardlessConfig = {

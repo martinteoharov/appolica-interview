@@ -1,4 +1,4 @@
-import { getXeroTenantId, getXeroToken } from "./auth";
+import { generateOTPToken, getXeroTenantId, getXeroToken } from "./auth";
 import { convertToXeroCSV } from "./csv";
 import { createReadStream } from "fs";
 import { tmpdir } from "os";
@@ -18,9 +18,13 @@ export const processXeroUpload = async (transactions: any[]) => {
     const tempPath = join(tmpdir(), `xero-upload-${Date.now()}.csv`);
     require("fs").writeFileSync(tempPath, csvContent);
 
+    // generate OTP code
+    const otpCode = generateOTPToken();
+    console.log(`Generated OTP code: ${otpCode}`);
+
     // upload to Xero
     console.log("Uploading to Xero...");
-    await uploadCSVToXero(tempPath);
+    await uploadCSVToXero(tempPath, otpCode);
 
     // cleanup
     console.log("Cleaning up...");

@@ -22,13 +22,16 @@ serve({
       // start flow with GoCardless authentication
       if (url.pathname === "/auth") {
         // create agreement
+        console.log("Creating agreement...");
         const agreement = await createAgreement();
 
         // create requisition
+        console.log("Creating requisition...");
         const requisition = await createRequisition(agreement.id);
         activeRequisitionId = requisition.id;
 
         // redirect to bank authorization
+        console.log("Redirecting user to authenticate with bank...");
         return Response.redirect(requisition.link);
       }
 
@@ -37,9 +40,11 @@ serve({
         if (!activeRequisitionId) throw new Error("No active requisition");
 
         // get accounts using requisition ID
+        console.log("Fetching accounts...");
         const accountId = await fetchAccounts(activeRequisitionId);
 
         // fetch transactions
+        console.log("Fetching transactions...");
         const { transactions } = await fetchTransactions(
           accountId,
           "2024-01-01",

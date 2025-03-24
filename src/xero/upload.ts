@@ -1,7 +1,10 @@
 import puppeteer from "puppeteer";
 import { xeroConfig } from "../config";
 
-export const uploadCSVToXero = async (csvPath: string = "transactions.csv") => {
+export const uploadCSVToXero = async (
+  csvPath: string = "transactions.csv",
+  otpCode: string,
+) => {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
 
@@ -19,6 +22,13 @@ export const uploadCSVToXero = async (csvPath: string = "transactions.csv") => {
       .locator('[data-automationid="PassWord--input"]')
       .fill(xeroConfig.password);
     await page.locator('[data-automationid="LoginSubmit--button"]').click();
+
+    await page.waitForNavigation();
+
+    await page
+      .locator('[data-automationid="auth-onetimepassword--input"]')
+      .fill(otpCode);
+    await page.locator('[data-automationid="auth-submitcodebutton"]').click();
 
     await page.waitForNavigation();
 
